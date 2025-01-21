@@ -1,0 +1,48 @@
+<!-- Types of data binding in Angular -->
+
+<div class="row">
+    <div class="col-6">
+        <!-- One way data binding
+        1. Interpolation -->
+        <p>FirstName: {{firstName}}</p>
+    </div>
+    <div class="col-6">
+        <!-- 2. Property Binding -->
+        <input type="text" name="" id="" [value]="firstName">
+        <br>
+        <input type="text" name="" id="" [placeholder]="myPlaceHolder">
+        <br>
+        <!-- <div [class]="classBG" style="height: 100px; width: 100px; margin-top: 10px;"></div> -->
+    </div>
+</div>
+<div class="row">
+    <!-- 3. Event Binding -->
+    <!-- Calling function on click or change event by declaring functions in component.ts file of respective component -->
+    <div class="col-3">
+        <button style="margin-left: 10px;" class="btn btn-success" (click)="showWelcomeMessage()">
+            Event binding button</button>
+    </div>
+    <div class="col-3">
+        <select (change)="cityChange()">
+            <option value="pune">Pune</option>
+            <option value="mumbai">Mumbai</option>
+            <option value="thane">Thane</option>
+        </select>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Two way data binding -->
+    <!-- Using ngModel directive -->
+    <div class="col-3">
+        <input style="margin-left: 10px; margin-top: 10px;" type="text" [(ngModel)]="firstName">
+    </div>
+    <div class="col-3">
+        <select [(ngModel)]="citySelected">
+            <option value="Pune">Pune</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Thane">Thane</option>
+        </select>
+        - {{citySelected}}
+    </div>
+</div>

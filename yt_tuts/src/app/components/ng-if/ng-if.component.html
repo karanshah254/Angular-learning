@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-3">
+        <!-- *ngIf is used to show or hide the element based on the condition -->
+        <div class="bg-warning p-3 text-center" *ngIf="div1Visible">
+            Div 1
+        </div>
+    </div>
+    <div class="col-3">
+        <!-- when bith numbers are equal then show this div. By default both numbers are 0 and value of ngIf is false -->
+        <div class="bg-primary p-3" *ngIf="number1 === number2">
+            Div 2
+        </div>
+    </div>
+</div>
+<div class="row pt-3">
+    <div class="col-3">
+        <button (click)="hideDiv()" class="btn btn-danger mx-2">
+            Hide div
+        </button>
+        <button class="btn btn-success" (click)="showDiv()">
+            Show div
+        </button>
+    </div>
+    <div class="col-3">
+        <input type="text" [(ngModel)]="number1">
+        <input type="text" [(ngModel)]="number2">
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-3">
+        <ul>
+            <li *ngFor="let city of cityList">
+                {{city}}
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3">
+        <!-- <select>
+            <option *ngFor="let emp of empList" [value]="emp.empId">
+                {{emp.name}} having salary {{emp.salary}}
+            </option>
+        </select> -->
+    </div>
+    <div class="col-5">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Sr No</th>
+                    <th>Name</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let emp of empList; let sr_no = index">
+                    <td>{{sr_no + 1}}</td>
+                    <td>{{emp.name}}</td>
+                    <td>{{emp.salary}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
