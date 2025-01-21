@@ -10,7 +10,7 @@
 1. ngFor: Repeats a template for each item in a list. It requires array. Sample code: ```<li *ngFor="let state of variable_name>{{state}}</li>```
 2. ngIf: Adds or removes an element from the DOM based on a condition. It requires true/false or conditional values. Sample code: ```<button *ngIf="declared_variable">show/hide</button>```.
 3. ngClass: The ngClass directive allows us to conditionally apply CSS classes to HTML elements. Sample code: ```<div class="col-3" [ngClass]="div1BgColor"></div>```.
-4. ngStyle: Change the css styles of HTMl tag. It uses key-value pair notation to be used in typescript file. Sample code: ```<div class="col-3 p-4" [ngStyle]="{'background-color': div1Style}">Div 1</div>```. We can also use conditonal statement or ternary operator to use ngStyle ```<div class="col-3 p-4" [ngStyle]="{'background-color' : isChecked ? 'yellow' : 'orange'}">```. We can use object declared in file and assigned as ```html <div [ngStyle]="myCSs"></div>```.
+4. ngStyle: Change the css styles of HTMl tag. It uses key-value pair notation to be used in typescript file. Sample code: ```<div class="col-3 p-4" [ngStyle]="{'background-color': div1Style}">Div 1</div>```. We can also use conditonal statement or ternary operator to use ngStyle ```<div class="col-3 p-4" [ngStyle]="{'background-color' : isChecked ? 'yellow' : 'orange'}">```. We can use object declared in file and assigned as ```<div [ngStyle]="myCSs"></div>```.
 
 **You can also define your own custom directive**
 
