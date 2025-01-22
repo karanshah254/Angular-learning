@@ -21,7 +21,7 @@ export const routes: Routes = [
 ```html
 <a class="nav-link" routerLink="pathname">Route Name to be shown</a>
 ```
-- >RouterLink is a directive that allows users to navigate between views in an application. It's a key feature of Angular's router.
+- >RouterLink is a module that allows users to navigate between views in an application. It's a key feature of Angular's router.
 
 
 ### Use of routing from typescrip file using angular Router
