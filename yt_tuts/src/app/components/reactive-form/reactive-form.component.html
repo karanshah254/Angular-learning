@@ -1,0 +1,79 @@
+<div class="container">
+    <!-- make this form reactive form -->
+    <form class="row g-3" (ngSubmit)="onSave()" [formGroup]="userForm">
+        <div class="col-md-4">
+            <label for="validationCustom01" class="form-label">First name</label>
+            <input type="text" formControlName="fName" class="form-control">
+            <div class="text-danger">
+                @if(userForm.controls['fName'].errors?.['required'] && userForm.controls['fName'].touched){
+                <span>this is required field</span>
+                }
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label for="validationCustom02" class="form-label">Last name</label>
+            <input type="text" formControlName="lName" class="form-control">
+            @if(userForm.controls['lName'].touched){
+            <div class="text-danger">
+                @if(userForm.controls['lName'].errors?.['required']) {
+                <span>this is required field</span>
+                }
+                @if(userForm.controls['lName'].errors?.['minlength']) {
+                <span>min length is 3</span>
+                }
+            </div>
+            }
+        </div>
+        <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label">Username</label>
+            <div class="input-group has-validation">
+                <span class="input-group-text" id="inputGroupPrepend">&#64;</span>
+                <input type="text" class="form-control" formControlName="userName">
+                <div class="invalid-feedback">
+                    Please choose a username.
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="validationCustom03" class="form-label">City</label>
+            <input type="text" class="form-control" formControlName="city">
+            <div class="invalid-feedback">
+                Please provide a valid city.
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="validationCustom04" class="form-label">State</label>
+            <select class="form-select" formControlName="state">
+                <option selected disabled value="">Choose...</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Rajasthan">Rajasthan</option>
+            </select>
+            <div class="invalid-feedback">
+                Please select a valid state.
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="validationCustom05" class="form-label">Zip</label>
+            <input type="text" class="form-control" formControlName="zipCode">
+            <div class="invalid-feedback">
+                Please provide a valid zip.
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" formControlName="isAgreeTerms">
+                <label class="form-check-label" for="invalidCheck">
+                    Agree to terms and conditions
+                </label>
+                <div class="invalid-feedback">
+                    You must agree before submitting.
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            - {{userForm.valid}}
+            <!-- unable to click the button until all valid fields are filled -->
+            <button [disabled]="userForm.invalid" class="btn btn-primary" type="submit">Submit form</button>
+        </div>
+    </form>
+</div>

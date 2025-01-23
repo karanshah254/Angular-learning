@@ -5,13 +5,18 @@ import { DataBindingComponent } from './components/data-binding/data-binding.com
 import { NgIfComponent } from "./components/ng-if/ng-if.component";
 import { NgForComponent } from "./components/ng-for/ng-for.component";
 import { NgClassComponent } from "./components/ng-class/ng-class.component";
+import { NgStyleComponent } from "./components/ng-style/ng-style.component";
+import { ControlFlowStatementComponent } from "./components/control-flow-statement/control-flow-statement.component";
+import { SignalComponent } from "./components/signal/signal.component";
+import { LinkedSignalComponent } from "./components/linked-signal/linked-signal.component";
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  imports: [NgClassComponent]
+  imports: [RouterOutlet, RouterLink]
 })
 export class AppComponent {
   title = 'yt_tuts';

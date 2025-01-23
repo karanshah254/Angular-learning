@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-data-binding',
@@ -17,7 +18,7 @@ export class DataBindingComponent {
   classBG: string = 'bg-success';
   citySelected: string = '';
 
-  constructor() {
+  constructor(private router: Router) {
     // console.log(this.firstName);
     // this.firstName = 'karan' // change the value of property/atrribute
     // this.showWelcomeMessage(); // this will call every time on page load.
@@ -29,5 +30,11 @@ export class DataBindingComponent {
 
   cityChange() {
     alert('City Changed');
+  }
+
+  // route using button in ts file
+  goToAdmin() {
+    // using router to navigate to admin component
+    this.router.navigateByUrl('/admin')
   }
 }

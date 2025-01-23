@@ -1,0 +1,28 @@
+<div class="row">
+    <!-- use of [ngStyle] directive -->
+    <div class="col-3 p-4" [ngStyle]="{'background-color': div1Style, 'font-weight': 'bolder'}">
+        Div 1
+    </div>
+
+    <!-- based on conditional -->
+    <div class="col-3 p-4" [ngStyle]="{'background-color' : isChecked ? 'yellow' : 'orange'}">
+        Div 2
+    </div>
+
+    <!-- based on add css as key-value pair -->
+     <div class="col-3 p-4" [ngStyle]="myCss">
+        Div 3
+     </div>
+</div>
+<div class="row mt-2">
+    <div class="col-3">
+        <!-- click event -->
+        <button (click)="addColor('green')" class="mx-2 btn btn-success">Green</button>
+        <button (click)="addColor('red')" class="btn btn-danger">Danger</button>
+    </div>
+    <div class="col-3">
+        <!-- use of ngModel for conditonal running -->
+        <label>Click to see change in div 2 :</label>
+        <input class="mx-2" type="checkbox" [(ngModel)]="isChecked">
+    </div>
+</div>

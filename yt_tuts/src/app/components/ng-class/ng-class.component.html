@@ -1,29 +1,38 @@
 <div class="row">
-    <!-- Use of attribute directive ngClass -->
+    <!-- Use of attribute directive -->
+     <!-- use of ngClass directive -->
     <div style="font-weight: bolder;" class="col-3 p-3 text-center" [ngClass]="div1BgColor">
         Div 1
     </div>
-    <div style="font-weight: bolder;" class="col-3 p-3 text-center" [ngClass]="isChecked === true ? 'bg-success': 'bg-danger'">
+    <div style="font-weight: bolder;" class="col-3 p-3 text-center"
+        [ngClass]="isChecked === true ? 'bg-success': 'bg-danger'">
         Div 2
     </div>
-    <div style="font-weight: bolder;" class="col-3 p-3 text-center">
+    <div style="font-weight: bolder;" class="col-3 p-3" [ngClass]="div3TextBox">    
         Div 3
     </div>
+
+    <!-- use of dynamic [class] directive -->
+     <!-- <div [class]="div1BgColor">
+        Div 4
+     </div> -->
 </div>
 
 <div class="row mt-3">
     <div class="col-3">
+        <!-- based on click event -->
         <button (click)="addDiv1Color('bg-success')" class="btn btn-success mx-3">Change green
         </button>
-
         <button (click)="addDiv1Color('bg-danger')" class="btn btn-danger">Change red
         </button>
     </div>
     <div class="col-3">
+        <!-- based on checked/unchecked condition -->
         <input type="checkbox" [(ngModel)]="isChecked">
         - {{isChecked}}
     </div>
     <div class="col-3">
-        
+        <!-- based on class-name given to text-box -->
+        <input type="text" [(ngModel)]="div3TextBox">
     </div>
 </div>

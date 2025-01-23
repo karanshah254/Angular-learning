@@ -1,0 +1,36 @@
+<h3>GET API</h3>
+<div class="row">
+    <div class="col-3">
+        <button (click)="getUsers()" class="btn btn-success">
+            Load users
+        </button>
+    </div>
+</div>
+<div class="row my-4 mx-2">
+    <div class="col-5">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>User name</th>
+                    <th>email</th>
+                    <th>Phone</th>
+                    <th>Website</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of userList; track $index) {
+                <tr>
+                    <td>{{$index+1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.username}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.phone}}</td>
+                    <td>{{item.website}}</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

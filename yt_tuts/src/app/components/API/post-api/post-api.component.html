@@ -1,0 +1,90 @@
+<div class="container mx-auto my-5">
+    <div class="row">
+        <!-- Card Component -->
+        <div class="col-lg-6 col-md-12">
+            <div class="card" style="width: 100%;">
+                <h2 class="text-center" style="color: red; background-color: black; font-weight: bolder; height: 45px;">
+                    Create a new car</h2>
+                <form style="background-color: aqua; font-weight: bolder;">
+                    <div class="form-group card-body">
+                        <label>Enter ID:</label>
+                        <input [(ngModel)]="carObj.carId" type="text" class="form-control" id="id" name="id">
+                    </div>
+                    <div class="form-group card-body">
+                        <label>Enter brand name:</label>
+                        <input [(ngModel)]="carObj.brand" type="text" class="form-control" id="brand" name="brand">
+                    </div>
+                    <div class="form-group card-body">
+                        <label>Enter model:</label>
+                        <input [(ngModel)]="carObj.model" type="text" class="form-control" id="model" name="model">
+                    </div>
+                    <div class="form-group card-body">
+                        <label>Enter year:</label>
+                        <input [(ngModel)]="carObj.year" type="text" class="form-control" id="year" name="year">
+                    </div>
+                    <div class="form-group card-body">
+                        <label>Enter color:</label>
+                        <input [(ngModel)]="carObj.color" type="text" class="form-control" id="color" name="color">
+                    </div>
+                    <div class="form-group card-body">
+                        <label>Enter reg no:</label>
+                        <input [(ngModel)]="carObj.regNo" type="text" class="form-control" id="regNo" name="regNo">
+                    </div>
+                    <!-- shows button based on primary key i.e carId -->
+                    @if(carObj.carId === 0) {
+                    <button (click)="onSave()" class="mx-4 my-3 btn btn-success">
+                        Create a new car
+                    </button>
+                    } @else {
+                        <button (click)="updateCar()" class="mx-4 my-3 btn btn-warning">
+                            Update the car details
+                        </button>
+                    }
+                    <!-- - {{carObj.carId}} -->
+                    <button (click)="getAllCar()" type="button" class="btn btn-primary">
+                        Get all cars
+                    </button>
+                    <button (click)="resetDetails()" type="button" class="mx-4 btn btn-secondary">
+                        Reset form
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Table Component -->
+        <div class="col-lg-6 col-md-12">
+            <table class="table table-striped mt-3 mt-lg-0">
+                <thead class="thead-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Year</th>
+                        <th>Color</th>
+                        <th>Reg No</th>
+                        <th>Action</th>
+                </thead>
+                <tbody>
+                    @for (item of carList; track $index) {
+                    <tr>
+                        <td>{{$index + 1}}</td>
+                        <td>{{item.brand}}</td>
+                        <td>{{item.model}}</td>
+                        <td>{{item.year}}</td>
+                        <td>{{item.color}}</td>
+                        <td>{{item.regNo}}</td>
+                        <td>
+                            <button (click)="onEdit(item)" class="btn btn-warning">
+                                Edit
+                            </button>
+                            <button (click)="onDelete(item.carId)" class="mx-2 btn btn-danger">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

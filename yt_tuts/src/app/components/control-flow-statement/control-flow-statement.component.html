@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-3">
+        <!-- using if-block in angular -->
+        @if(div1Visible) {
+        <div class="bg-success p-3">
+            Div 1
+        </div>
+        }
+    </div>
+    <div class="col-3">
+        <!-- use of if-else block of code in angular -->
+        @if(isCheck) {
+        <div class="bg-primary p-3">
+            CheckBox checked
+        </div>
+        } @else {
+        <div class="bg-warning p-3">
+            CheckBox Unchecked
+        </div>
+        }
+    </div>
+    <div class="col-3">
+        <!-- use of if-else-if ladder -->
+        @if(dayName ==='mon'){
+        <span>Monday</span>
+        } @else if (dayName ==='tue') {
+        <span>Tuesday</span>
+        } @else if (dayName==='wed') {
+        <span>Wednesday</span>
+        } @else {
+        <span>no day entered</span>
+        }
+        <!-- and so on till sunday -->
+    </div>
+    <div class="col-3">
+
+    </div>
+</div>
+
+<div class="row p-3">
+    <div class="col-3 mx-3">
+        <button (click)="showHideDiv1(true)" class="mx-2 btn btn-success">Show</button>
+        <button class="btn btn-warning" (click)="showHideDiv1(false)">Hide</button>
+    </div>
+    <div class="col-3">
+        <label class="mx-2">CheckBox</label>
+        <input type="checkbox" [(ngModel)]="isCheck">
+    </div>
+    <div class="col-3">
+        <input type="text" [(ngModel)]="dayName" maxlength="3" placeholder="Enter day">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3">
+        <!-- use of @for in angular -->
+        <select>
+            @for (city of cityList; track $index) {
+            <option>{{city}}</option>
+            }
+        </select>
+    </div>
+</div>
