@@ -1,0 +1,24 @@
+<div class="row">
+    <!-- <div class="col-3">
+        check if the userList has value:
+        {{userList.hasValue()}}
+    </div> -->
+    <div class="col-3">
+        <ul>
+            @for (item of userList.value(); track $index) {
+                <li>
+                    {{item.name}} - {{item.email}}
+                </li>
+            }
+        </ul>
+    </div>
+    <!-- <div class="col-3">
+        while loading it gives value true then after rendering it gives false:
+        {{userList.isLoading()}}
+    </div> -->
+    <div class="col">
+        <button class="btn btn-success" (click)="reloadData()">
+            Reload data
+        </button>
+    </div>
+</div>
