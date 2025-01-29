@@ -1,3 +1,9 @@
+<app-progress-bar [progressValue]="50"></app-progress-bar>
+<!-- <div class="row mt-2">
+    <div class="col-12 text-center">
+        <app-tabs [tabList]="customerTabs"></app-tabs>
+    </div>
+</div> -->
 <div class="row">
     <!-- <div class="col-3">
         check if the userList has value:
@@ -16,7 +22,7 @@
         while loading it gives value true then after rendering it gives false:
         {{userList.isLoading()}}
     </div> -->
-    <div class="col">
+    <div class="col-3 mt-2">
         <button class="btn btn-success" (click)="reloadData()">
             Reload data
         </button>

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ProgressBarComponent } from "../../reusable/progress-bar/progress-bar.component";
 
 @Component({
   selector: 'app-admin',
-  imports: [RouterLink],
+  imports: [RouterLink, ProgressBarComponent],
   standalone: true,
   templateUrl: './admin.component.html',
-  styleUrl: './admin.component.css'
+  // styleUrl: './admin.component.css'
 })
 export class AdminComponent {
 

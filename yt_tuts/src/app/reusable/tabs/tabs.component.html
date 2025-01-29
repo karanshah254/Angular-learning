@@ -1,0 +1,10 @@
+<!-- Use of @Output -->
+<div class="btn-group" role="group" aria-label="Basic example">
+    @for (item of tabList; track $index) {
+    <!-- added click event to make call from child from parent -->
+    <button (click)="onTabClicked(item)" [ngClass]="currentTab == item ? 'btn-success': 'btn-secondary'" type="button"
+        class="btn">
+        {{item}}
+    </button>
+    }
+</div>

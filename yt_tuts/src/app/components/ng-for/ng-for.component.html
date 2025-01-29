@@ -1,3 +1,27 @@
+<app-progress-bar [progressValue]="100"></app-progress-bar>
+
+<div class="row">
+    <div class="col-3">
+        <!-- tranform the data or strng to uppercase -->
+        use of pipe for uppercase => {{courceName | uppercase}}
+    </div>
+    <div class="col-3">
+        <!-- tranform the data or strng to lowercase -->
+        use of pipe for lowercase => {{courceName | lowercase}}
+    </div>
+    <div class="col-3">
+        <!-- use os json pipe for object => {{obj | json}} -->
+        using of json-pipe for object => {{studentObj | json}}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3">
+        <!-- formatted date using pipes -->
+        date only => {{date | date:'dd-MMM-yy'}}
+    </div>
+</div>
+
 <div class="row">
     <div class="col-3">
         <ul>
@@ -23,13 +47,18 @@
                     <th>Sr No</th>
                     <th>Name</th>
                     <th>Salary</th>
+                    <th>Attendance</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let emp of empList; let sr_no = index">
                     <td>{{sr_no + 1}}</td>
-                    <td>{{emp.name}}</td>
-                    <td>{{emp.salary}}</td>
+                    <!-- implemented custom pipes for empty, null and undefined value present -->
+                    <td>{{emp.name | na}}</td>
+                    <td>{{emp.salary | na}}</td>
+                    <td>
+                        <app-progress-bar [progressValue]="emp.attendance"></app-progress-bar>
+                    </td>
                 </tr>
             </tbody>
         </table>

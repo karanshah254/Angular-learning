@@ -15,8 +15,8 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  imports: [RouterOutlet, RouterLink]
+  // styleUrls: ['./app.component.css'],
+  imports: [RouterOutlet]
 })
 export class AppComponent {
   title = 'yt_tuts';

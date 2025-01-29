@@ -1,25 +1,37 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ProgressBarComponent } from "../../../reusable/progress-bar/progress-bar.component";
+import { TabsComponent } from "../../../reusable/tabs/tabs.component";
+import { Car, ICarList } from '../../../model/car';
 
 @Component({
   selector: 'app-post-api',
-  imports: [FormsModule],
+  imports: [FormsModule, TabsComponent],
   standalone: true,
   templateUrl: './post-api.component.html',
   // styleUrl: './post-api.component.css'
 })
-export class PostApiComponent {
-  carList: any[] = [];
-  carObj: any = {
-    "carId": 0,
-    "brand": "",
-    "model": "",
-    "year": "",
-    "color": "",
-    "regNo": ""
-  };
+export class PostApiComponent implements OnInit {
+  carList: ICarList[] = []; // Array of ICarList interface
+  
+  carObj: Car = new Car(); // Object of Car class
+  
   http = inject(HttpClient); // Injecting HttpClient to make API calls
+  
+  currentTab: string = 'New Car'; // Default tab
+
+  
+  // use of reusable component along with @Output
+  onTabChange(tabName: string) {
+    // making this button groups dynamic by using reusable component
+    this.currentTab = tabName;
+  }
+
+  // uaing ngOnInit to make API CALLS
+  ngOnInit(): void {
+    this.getAllCar();
+  }
 
   // first get all cars then add new car
   getAllCar() {
@@ -60,6 +72,7 @@ export class PostApiComponent {
       if (res.result) {
         alert('Car updates successfully');
         this.getAllCar();
+        this.carObj = new Car();
       } else {
         console.log(res.message);
       }
@@ -68,14 +81,7 @@ export class PostApiComponent {
 
   // to reset the form
   resetDetails() {
-    this.carObj = {
-      "carId": 0,
-      "brand": "",
-      "model": "",
-      "year": "",
-      "color": "",
-      "regNo": ""
-    }
+    this.carObj = new Car();
   }
 
   // to delete the car details by using its ID
