@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProgressBarComponent } from "../../../reusable/progress-bar/progress-bar.component";
 import { TabsComponent } from "../../../reusable/tabs/tabs.component";
@@ -14,14 +14,24 @@ import { Car, ICarList } from '../../../model/car';
 })
 export class PostApiComponent implements OnInit {
   carList: ICarList[] = []; // Array of ICarList interface
-  
+
   carObj: Car = new Car(); // Object of Car class
-  
+
   http = inject(HttpClient); // Injecting HttpClient to make API calls
-  
+
   currentTab: string = 'New Car'; // Default tab
 
-  
+  // VIEWCHILD START
+  @ViewChild('txtCity') cityTextBox: ElementRef | undefined;  // ViewChild to get the reference of the input element
+  readCity() {
+    // debugger;
+    const city = this.cityTextBox?.nativeElement.value;
+    if (this.cityTextBox) {
+      this.cityTextBox.nativeElement.style.color = 'red';
+    }
+  }
+  // END OF VIEWCHILD
+
   // use of reusable component along with @Output
   onTabChange(tabName: string) {
     // making this button groups dynamic by using reusable component

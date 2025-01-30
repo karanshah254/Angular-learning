@@ -10,13 +10,14 @@ import { ControlFlowStatementComponent } from "./components/control-flow-stateme
 import { SignalComponent } from "./components/signal/signal.component";
 import { LinkedSignalComponent } from "./components/linked-signal/linked-signal.component";
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { LayoutComponent } from "./components/layout/layout.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   // styleUrls: ['./app.component.css'],
-  imports: [RouterOutlet]
+  imports: [RouterOutlet, LayoutComponent]
 })
 export class AppComponent {
   title = 'yt_tuts';

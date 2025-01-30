@@ -21,74 +21,63 @@ export const routes: Routes = [
     // creating routes/URL for my components
     {
         path: '',
-        redirectTo: 'login',
-        pathMatch: 'full'
+        redirectTo: 'admin',
+        pathMatch: 'full',
     },
     {
-        path: 'login',
-        component: LoginComponent
+        path: 'admin',
+        component: AdminComponent
     },
     {
-        path: '',
-        component: LayoutComponent,
-        // canActivate: [authGuard], // this is the guard for the routes
-        children: [
-            {
-                path: 'admin',
-                component: AdminComponent
-            },
-            {
-                path: 'data-binding',
-                component: DataBindingComponent
-            },
-            {
-                path: 'ng-class',
-                component: NgClassComponent
-            },
-            {
-                path: 'signal',
-                component: SignalComponent
-            },
-            {
-                path: 'linked-signal',
-                component: LinkedSignalComponent
-            },
-            {
-                path: 'control-flow',
-                component: ControlFlowStatementComponent
-            },
-            {
-                path: 'template-form',
-                component: TemplateFormComponent
-            },
-            {
-                path: 'reactive-form',
-                component: ReactiveFormComponent
-            },
-            {
-                path: 'get-api',
-                component: GetAPIComponent
-            },
-            {
-                path: 'post-api',
-                component: PostApiComponent
-            },
-            {
-                path: 'resource-api',
-                component: ResourceApiComponent
-            },
-            {
-                path: 'service-api',
-                component: EmployeeComponent
-            },
-            {
-                path: 'life-cycle',
-                component: LifeCycleComponent
-            },
-            {
-                path: 'ng-for',
-                component: NgForComponent
-            },
-        ]
-    }
+        path: 'data-binding',
+        component: DataBindingComponent
+    },
+    {
+        path: 'ng-class',
+        component: NgClassComponent
+    },
+    {
+        path: 'signal',
+        component: SignalComponent
+    },
+    {
+        path: 'linked-signal',
+        component: LinkedSignalComponent
+    },
+    {
+        path: 'control-flow',
+        component: ControlFlowStatementComponent
+    },
+    {
+        path: 'template-form',
+        component: TemplateFormComponent
+    },
+    {
+        path: 'reactive-form',
+        component: ReactiveFormComponent
+    },
+    {
+        path: 'get-api',
+        component: GetAPIComponent
+    },
+    {
+        path: 'post-api',
+        component: PostApiComponent
+    },
+    {
+        path: 'resource-api',
+        component: ResourceApiComponent
+    },
+    {
+        path: 'service-api',
+        component: EmployeeComponent
+    },
+    {
+        path: 'life-cycle',
+        component: LifeCycleComponent
+    },
+    {
+        path: 'ng-for',
+        component: NgForComponent
+    },
 ];
