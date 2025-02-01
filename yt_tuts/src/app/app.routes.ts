@@ -16,6 +16,7 @@ import { NgForComponent } from './components/ng-for/ng-for.component';
 import { LoginComponent } from './components/login/login.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { authGuard } from './gaurd/auth.guard';
+import { NgTempNgContainerComponent } from './components/ng-temp-ng-container/ng-temp-ng-container.component';
 
 export const routes: Routes = [
     // creating routes/URL for my components
@@ -80,4 +81,8 @@ export const routes: Routes = [
         path: 'ng-for',
         component: NgForComponent
     },
+    {
+        path: 'ng-template',
+        component: NgTempNgContainerComponent
+    }
 ];

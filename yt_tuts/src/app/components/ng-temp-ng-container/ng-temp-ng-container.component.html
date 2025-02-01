@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-5">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Sr No</th>
+                    <th>Name</th>
+                    <th>Salary</th>
+                    <th>Attendance</th>
+                    <th>Active</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngIf="isLoader">
+                    <!-- ng-template #loaderTemp has been used in ng-container -->
+                    <ng-container *ngTemplateOutlet="loaderTemp"></ng-container>
+
+                    <!-- Another way to use ng-template #loadertemp -->
+                    <!-- <div [ngTemplateOutlet]="loaderTemp"></div> -->
+                </ng-container>
+
+                <ng-container *ngIf="!isLoader">
+                    <tr *ngFor="let emp of employeeArray; let sr_no = index">
+                        <td>{{sr_no + 1}}</td>
+                        <td>{{emp.name}}</td>
+                        <td>{{emp.salary}}</td>
+                        <td>{{emp.attendance}}%</td>
+                        <td>
+                            <!-- ng-template #value has been used in ng-container -->
+                            <span class="text-info" *ngIf="emp.isActive else tempDeActive">ACTIVE</span>
+                        </td>
+                    </tr>
+                </ng-container>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #loaderTemp>
+    <tr>
+        <div class="d-flex align-items-center">
+            <strong role="status">Loading...</strong>
+            <div class="spinner-border ms-auto" aria-hidden="true"></div>
+        </div>
+    </tr>
+</ng-template>
+
+<!-- will not rendered on browser -->
+<ng-template #tempDeActive>
+    <div class="text-danger">
+        <span>DE - ACTIVE</span>
+    </div>
+</ng-template>

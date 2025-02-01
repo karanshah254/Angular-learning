@@ -17,7 +17,7 @@ import { LayoutComponent } from "./components/layout/layout.component";
   standalone: true,
   templateUrl: './app.component.html',
   // styleUrls: ['./app.component.css'],
-  imports: [RouterOutlet, LayoutComponent]
+  imports: [RouterOutlet]
 })
 export class AppComponent {
   title = 'yt_tuts';
