@@ -1,0 +1,155 @@
+<!-- implemented crud operation in angular
+used:
+1. template form
+2. @if @else 
+3. property binding
+4. form validation
+5. save to local storage -->
+
+
+<div class="row">
+  @if(!isNewUser) {
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header bg-warning">
+        <div class="row">
+          <div class="col-6 mx-auto my-auto">
+            <h6>User List</h6>
+          </div>
+          <div class="col-6 text-end">
+            <button (click)="showHide()" class="btn btn-success">Add new user</button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          @for (item of userArray; track $index) {
+          <div class="col-3">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title">
+                  {{item.fName}} {{item.lName}}
+                </h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">
+                  {{item.username}}
+                </h6>
+                <p class="card-text">
+                  {{item.city}}, {{item.state}} - {{item.zipCode}}
+                </p>
+                <button class="btn btn-info" (click)="onEdit(item)"><b>Edit Item</b></button>
+                <button class="mx-2 btn btn-danger" (click)="onDelete(item.userId)"><b>Delete Item</b></button>
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+  } @else {
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header bg-warning">
+        <div class="row">
+          <div class="col-6 mx-auto my-auto">
+            <h6>New user</h6>
+          </div>
+          <div class="col-6 text-end">
+            <button (click)="showHide()" class="btn btn-success">
+              View list
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <form class="row g-3 needs-validation" #formValue="ngForm">
+          <div class="col-md-4">
+            <label for="validationCustom01" class="form-label">First name</label>
+            <input type="text" [(ngModel)]="userObj.fName" #fName="ngModel" name="fName" minlength="3"
+              class="form-control" id="validationCustom01">
+            @if (fName.touched) {
+            <div class="text-danger">
+              @if(fName.errors?.['required']) {
+              <span>This is required field</span><br>
+              } @if(fName?.errors?.['minlength']) {
+              <span>Minimum 3 characters are required</span>
+              }
+            </div>
+            }
+          </div>
+          <div class="col-md-4">
+            <label for="validationCustom02" class="form-label">Last name</label>
+            <input type="text" [(ngModel)]="userObj.lName" #lName="ngModel" name="lName" class="form-control"
+              id="validationCustom02">
+            @if(lName?.errors?.['required'] && lName.touched) {
+            <div class="text-danger">
+              <span>This is required field</span>
+            </div>
+            }
+          </div>
+          <div class="col-md-4">
+            <label for="validationCustomUsername" class="form-label">Username</label>
+            <div class="input-group has-validation">
+              <span class="input-group-text" id="inputGroupPrepend">&#64;</span>
+              <input type="text" [(ngModel)]="userObj.username" name="username" class="form-control"
+                id="validationCustomUsername" aria-describedby="inputGroupPrepend">
+              <div class="invalid-feedback">
+                Please choose a username.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="validationCustom03" class="form-label">City</label>
+            <input type="text" [(ngModel)]="userObj.city" name="city" class="form-control" id="validationCustom03">
+            <div class="invalid-feedback">
+              Please provide a valid city.
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label for="validationCustom04" class="form-label">State</label>
+            <select class="form-select" [(ngModel)]="userObj.state" name="state" id="validationCustom04">
+              <option selected disabled value="">Choose state</option>
+              <option>Gujarat</option>
+              <option>Delhi</option>
+              <option>Uttar Pradesh</option>
+              <option>Maharastra</option>
+              <option>USA</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a valid state.
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label for="validationCustom05" class="form-label">Zip</label>
+            <input type="text" [(ngModel)]="userObj.zipCode" name="zipCode" class="form-control"
+              id="validationCustom05">
+            <div class="invalid-feedback">
+              Please provide a valid zip.
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" [(ngModel)]="userObj.isAgree" name="isAgree" type="checkbox" value=""
+                id="invalidCheck">
+              <label class="form-check-label" for="invalidCheck">
+                Agree to terms and conditions
+              </label>
+              <div class="invalid-feedback">
+                You must agree before submitting.
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            @if(userObj.userId ===0){
+            <button class="btn btn-primary" (click)="onSave()" [disabled]="formValue.invalid" type="submit">Save
+              details</button>
+            } @else {
+            <button class="btn btn-info" (click)="onUpdate()" type="submit">Update</button>
+            }
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  }
+</div>
