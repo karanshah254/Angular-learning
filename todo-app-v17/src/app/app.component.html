@@ -1,0 +1,18 @@
+<h1 class="text-center bg-info">
+  {{title | uppercase}}
+</h1>
+<br>
+<div class="input d-flex justify-content-center align-items-center">
+  <span>Enter tasks:</span>
+  <input type="text" placeholder="Enter task" #task class="mx-2">
+  <button class="btn btn-success" (click)="addtask(task.value)">add task</button>
+</div>
+
+<div class="task d-flex justify-content-center align-items-center">
+  <ul>
+    <li *ngFor="let item of taskList" class="mb-2 mt-4">
+      {{item.name | uppercase}}
+      <button (click)="deleteTask(item.value)" class="btn btn-danger mx-4">delete</button>
+    </li>
+  </ul>
+</div>
