@@ -1,0 +1,36 @@
+<div class="container mt-4">
+    <h2>
+        {{isEditMode ? 'Edit User' : 'Add User'}}
+    </h2>
+    <form (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="user.name" name="name" placeholder="Enter your name" required>
+        </div>
+        <div class="mb-3">
+            <label for="gender" class="form-label">Gender</label>
+            <select class="form-select" [(ngModel)]="user.gender" [ngModelOptions]="{standalone: true}" name="gender"
+                id="gender" required>
+                <option selected>Select gender...</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="dob" class="form-label">Date of Birth</label>
+            <input type="date" class="form-control" id="dob" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="user.dob" name="dob" required>
+        </div>
+        <div class="mb-3">
+            <label for="pincode" class="form-label">Pin Code</label>
+            <input type="number" class="form-control" id="pincode" placeholder="Enter your pin code"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="user.pincode" required>
+        </div>
+        <button type="submit" class="{{ isEditMode ? 'btn btn-warning' : 'btn btn-primary' }}">
+            {{ isEditMode ? 'Save Edit' : 'Submit the details' }}
+        </button>
+        <button type="submit" class="btn btn-info mx-3" (click)="navigateToList()">View users list</button>
+    </form>
+</div>

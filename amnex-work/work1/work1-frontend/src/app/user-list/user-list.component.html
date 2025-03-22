@@ -1,0 +1,41 @@
+<div class="container mt-4">
+    <h2>User List</h2>
+    <!-- dropdown for the pagination -->
+    <div class="mb-3">
+        <label for="itemsPerPage">Items per Page</label>
+        <select class="short-dropdown mx-2" id="itemsPerPage" (change)="changeItemsPerPage($event)">
+            <option *ngFor="let option of itemsPerPageOptions" [value]="option" [selected]="option === itemsPerPage">
+                {{ option }}
+            </option>
+        </select>
+    </div>
+
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>SR No.</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Date of Birth</th>
+                <th>Pin Code</th>
+                <th>Edit/Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users | paginate: {itemsPerPage: itemsPerPage, currentPage: currentPage}">
+                <td>{{user.srNo}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.gender}}</td>
+                <td>{{user.dob | date: "dd/MM/YY"}}</td> <!-- date pipe -->
+                <td>{{user.pincode}}</td>
+                <td>
+                    <button class="btn btn-warning btn-sm" (click)="editUser(user.srNo)">Edit</button>
+                    <button class="btn btn-danger mx-3 btn-sm" (click)="deleteUser(user.srNo)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- Pagination controls -->
+    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+    <button type="button" class="btn btn-info mt-3 mx-3" (click)="goToForm()">Add new user</button>
+</div>
