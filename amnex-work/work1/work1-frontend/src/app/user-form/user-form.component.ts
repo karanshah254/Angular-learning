@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User, UserService } from '../service/user.service';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { error } from 'console';
 
 @Component({
   selector: 'app-user-form',
@@ -20,34 +21,44 @@ export class UserFormComponent implements OnInit {
   constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const url = this.router.url;
-    if (url.includes('edit')) {
-      const srNo = parseInt(url.split('/')[2]);
-      const existingUser = this.userService.getUserBySrNo(srNo);
-      if (existingUser) {
-        this.user = { ...existingUser };
-        this.isEditMode = true;
-      }
-    }
     const srNo = this.route.snapshot.paramMap.get('srNo');
 
     if (srNo) {
-      const existingUser = this.userService.getUserBySrNo(parseInt(srNo));
-      if (existingUser) {
-        this.user = { ...existingUser };
-        this.isEditMode = true;
-      }
+      this.isEditMode = true;
+      this.userService.getUserBySrNo(parseInt(srNo)).subscribe((existingUser) => {
+        if (existingUser) {
+          this.user = existingUser;
+        }
+      }, (error) => {
+        console.error('Error fetching user by srNo:', error);
+      });
     }
   }
 
   onSubmit(): void {
     if (this.isEditMode) {
-      this.userService.updateUser(this.user);
+      this.userService.updateUser(this.user).subscribe(() => {
+        this.userService.loadUsersFromBackend();
+        this.userService.getUsers().subscribe(users => {
+          const index = users.findIndex(u => u.srNo === this.user.srNo);
+          if (index !== -1) {
+            users[index] = this.user; // Update list with edited user
+          }
+        });
+        this.router.navigate(['/user-list']);
+      }, (error) => {
+        console.error('Error updating user:', error);
+      }
+    );
     } else {
-      this.user.srNo = this.generateSrNo();
-      this.userService.addUser(this.user);
+      this.userService.addUser(this.user).subscribe(() => {
+        this.userService.loadUsersFromBackend();
+        this.router.navigate(['/user-list']);
+      }, (error) => {
+        console.error('Error adding user:', error);
+      }
+    );
     }
-    this.router.navigate(['/user-list']);
   }
 
   private generateSrNo(): number {

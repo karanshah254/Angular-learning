@@ -32,10 +32,6 @@ export class UserListComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe((data) => {
-      this.users = data;
-    });
-
     this.loadUsers();
   }
 
@@ -45,8 +41,11 @@ export class UserListComponent implements OnInit {
 
   deleteUser(srNo: number) {
     if (confirm('Are you sure you want to delete this user?')) {
-      this.userService.deleteUser(srNo);
-      this.loadUsers();
+      this.userService.deleteUser(srNo).subscribe(() => {
+        this.users = this.users.filter(user => user.srNo !== srNo); // Remove from UI instantly
+      }, (error) => {
+        console.error('Error deleting user:', error);
+      });
     }
   }
 

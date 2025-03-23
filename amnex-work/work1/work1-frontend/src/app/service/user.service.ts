@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export interface User {
   srNo: number;
@@ -14,65 +15,48 @@ export interface User {
 })
 
 export class UserService {
-  private users: User[] = [];
+  private apiUrl = 'http://localhost:8090/users';
 
-  private usersSubject = new BehaviorSubject<User[]>(this.users);
+  private usersSubject = new BehaviorSubject<User[]>([]);
   users$ = this.usersSubject.asObservable();
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.loadUsers();
   }
 
-  private saveUsers() {
-    localStorage.setItem('users', JSON.stringify(this.users));
-  }
-
   private loadUsers() {
-    const storedUsers = localStorage.getItem('users');
-    this.users = storedUsers ? JSON.parse(storedUsers) : [
-      { srNo: 1, name: 'John Doe', gender: 'Male', pincode: 123456, dob: '1990-01-01' },
-      { srNo: 2, name: 'Jane Doe', gender: 'Female', pincode: 654321, dob: '1992-02-02' },
-      { srNo: 3, name: 'Alice Smith', gender: 'Female', pincode: 112233, dob: '1988-03-15' },
-      { srNo: 4, name: 'Bob Johnson', gender: 'Male', pincode: 445566, dob: '1985-07-20' },
-      { srNo: 5, name: 'Charlie Brown', gender: 'Male', pincode: 778899, dob: '1995-11-10' }
-    ];
-    this.usersSubject.next(this.users);
+    this.http.get<User[]>(this.apiUrl).subscribe((users) => {
+      this.usersSubject.next(users);
+    });
   }
 
   getUsers() {
     return this.users$;
   }
 
-  addUser(user: User) {
-    this.users.push(user);
-    this.usersSubject.next(this.users);
-    this.saveUsers();
+  addUser(user: User): Observable<User> {
+    return this.http.post<User>(this.apiUrl, user);
   }
 
-  updateUser(updatedUser: User) {
-    const index = this.users.findIndex((user) => user.srNo === updatedUser.srNo);
-    if (index > -1) {
-      this.users[index] = updatedUser;
-      this.usersSubject.next(this.users);
-      this.saveUsers();
-    }
+  updateUser(user: User): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}/${user.srNo}`, user);
   }
 
   deleteUser(srNo: number) {
-    this.users = this.users.filter((user) => user.srNo !== srNo);
-    this.users = this.users.map((user, index) => ({
-      ...user,
-      srNo: index + 1,
-    }));
-    this.usersSubject.next(this.users);
-    this.saveUsers();
+    return this.http.delete<void>(`${this.apiUrl}/${srNo}`);
   }
 
-  getUserBySrNo(srNo: number): User | undefined {
-    return this.users.find((user) => user.srNo === srNo);
+  getUserBySrNo(srNo: number): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/${srNo}`);
   }
 
   getCurrentUsers() {
     return this.usersSubject.getValue();
+  }
+
+  loadUsersFromBackend() {
+    this.http.get<User[]>(this.apiUrl).subscribe((users) => {
+      this.usersSubject.next(users); // Emit updated list immediately
+    });
   }
 }
