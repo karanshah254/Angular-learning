@@ -11,5 +11,5 @@ import { NgxPaginationModule } from 'ngx-pagination';
   // styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'work1';
+  title = 'work1-amnex-user-management';
 }

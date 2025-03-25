@@ -21,13 +21,7 @@ export class UserService {
   users$ = this.usersSubject.asObservable();
 
   constructor(private http: HttpClient) {
-    this.loadUsers();
-  }
-
-  private loadUsers() {
-    this.http.get<User[]>(this.apiUrl).subscribe((users) => {
-      this.usersSubject.next(users);
-    });
+    this.loadUsersFromBackend();
   }
 
   getUsers() {

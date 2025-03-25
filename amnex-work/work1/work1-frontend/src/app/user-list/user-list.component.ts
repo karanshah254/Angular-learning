@@ -33,6 +33,9 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUsers();
+    this.userService.getUsers().subscribe((users) => {
+      this.users = users; // Display users dynamically as they load
+    });
   }
 
   editUser(srNo: number) {
