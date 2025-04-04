@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { EventSourcePolyfill } from 'event-source-polyfill';
 
 export interface User {
   srNo: number;
@@ -20,9 +21,39 @@ export class UserService {
   private usersSubject = new BehaviorSubject<User[]>([]);
   users$ = this.usersSubject.asObservable();
 
-  constructor(private http: HttpClient) {
-    this.loadUsersFromBackend();
+  constructor(private http: HttpClient) { }
+
+  streamUsers(): Observable<User> {
+    return new Observable<User>((observer) => {
+      const eventSource = new EventSourcePolyfill(this.apiUrl, {
+        headers: {
+          Accept: 'text/event-stream'
+        },
+        heartbeatTimeout: 30000,
+        withCredentials: false
+      });
+
+      eventSource.onmessage = (event) => {
+        try {
+          const user: User = JSON.parse(event.data);
+          observer.next(user);
+        } catch (error) {
+          console.error('JSON parse error:', error);
+        }
+      };
+
+      eventSource.onerror = (error) => {
+        console.error('Stream error:', error);
+        eventSource.close();
+        observer.complete();
+      };
+
+      return () => {
+        eventSource.close();
+      };
+    });
   }
+
 
   getUsers() {
     return this.users$;

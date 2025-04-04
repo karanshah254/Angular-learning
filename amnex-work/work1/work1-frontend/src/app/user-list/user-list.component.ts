@@ -1,5 +1,5 @@
 import { DatePipe, NgFor } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { User, UserService } from '../service/user.service';
 import { Router } from '@angular/router';
@@ -22,6 +22,8 @@ import { Router } from '@angular/router';
 export class UserListComponent implements OnInit {
   users: User[] = [];
 
+  usersSignal = signal<User[]>([]);
+
   // for static pagination of the data
   currentPage = 1;
   itemsPerPage = 5;
@@ -32,9 +34,25 @@ export class UserListComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
-    this.loadUsers();
-    this.userService.getUsers().subscribe((users) => {
-      this.users = users; // Display users dynamically as they load
+    this.startStreamingUsers();
+  }
+
+  startStreamingUsers() {
+    this.users = [];
+    this.userService.streamUsers().subscribe({
+      next: (user) => {
+        this.users.push(user);
+
+        if (this.users.length > this.itemsPerPage * this.currentPage) {
+          this.currentPage++;
+        }
+      },
+      error: (error) => {
+        console.error('Stream error:', error);
+      },
+      complete: () => {
+        console.log('All users received.');
+      }
     });
   }
 
@@ -45,7 +63,7 @@ export class UserListComponent implements OnInit {
   deleteUser(srNo: number) {
     if (confirm('Are you sure you want to delete this user?')) {
       this.userService.deleteUser(srNo).subscribe(() => {
-        this.users = this.users.filter(user => user.srNo !== srNo); // Remove from UI instantly
+        this.users = this.users.filter(user => user.srNo !== srNo);
       }, (error) => {
         console.error('Error deleting user:', error);
       });
