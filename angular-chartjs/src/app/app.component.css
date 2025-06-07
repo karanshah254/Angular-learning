@@ -1,0 +1,12 @@
+button {
+  color: white;
+  background: #000;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+#line {
+  margin-left: 40px;
+}
+#bar {
+  margin-left: 20px;
+}

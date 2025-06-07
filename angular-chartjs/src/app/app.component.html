@@ -1,0 +1,10 @@
+<div>
+  <button *ngIf="showButtonLine" id="line" (click)="onClick('line')">{{textLine}} to see {{graph2}} graph</button>
+  <button *ngIf="showButtonBar" id="bar" (click)="onClick('bar')">{{textBar}} to see {{graph1}} graph</button>
+</div>
+<div *ngIf="showLineChart">
+  <app-line-chart></app-line-chart>
+</div>
+<div *ngIf="showBarChart">
+  <app-bar-chart></app-bar-chart>
+</div>
